@@ -1,0 +1,11 @@
+ADD(0,0,CPT0) # On a deux pointeurs qui vont chacun augmenter de 1 à chaque itération. ils vont permettre de comparer les deux variables du tableau cote à cote.
+ADD(0,1,CPT1)
+JGE(CPT0,N0,10) # Si le pointeur de gauche est sur là dernière valeur, on a finit.
+JLE(T@CPT0,T@CPT1,6) # Si on est bien ordonnée (classé par ordre croissant) on jump.
+ADD(T@CPT0,0,TEMP0) # Sinon on va inverser les deux valeurs en utilisant une variable temporaire.
+ADD(T@CPT1,0,T@CPT0)
+ADD(TEMP0,0,T@CPT1)
+ADD(-1,CPT0,CPT0) # Comme on a fait un changement dans le tableau, on va refaire une boucle avec les mêmes pointeurs.
+ADD(CPT0,1,CPT0)
+ADD(CPT1,1,CPT1)
+JGE(0,0,-9)

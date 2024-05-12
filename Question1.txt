@@ -1,0 +1,10 @@
+1) Proposer une structure de données qui représente un programme RAM.
+    Pour représenter le programme d'une RAM, on a besoin d'une liste d'instruction chacune associé à des arguments.
+    Par exemple pour l'instruction (ADD,1,2,3), on a besoin de 4 variables: l'instruction ADD, et les 3 arguments 1, 2 et 3.
+    Le problème est que les arguments peuvent être des entiers ou des variables (Ex: input1, input est le nom du registre et 1 l'index dans le registre). Pour gerer les variables, on a besoin d'une table de symbole.
+    On doit donc créer une table de symbole qui permet de traduire les noms de variables en entier.
+    La table de symbole est un dictionnaire qui associe à chaque variable une liste d'entier.
+    Le nom de la variable donne le registre de la RAM auquel on veut accéder et l'entier associé au nom donne l'index de la variable demandée dans le registre.
+    La liste d'instruction est une liste de tuple. Chaque tuple contient une instruction et une liste avec des entiers ou des variables.
+    Pour les entiers, on les stocke directement dans la liste d'instruction.
+    Pour les variables, on les stocke sous forme de chaine de caractère. On utilisera la table de symbole pour les traduire en entier.

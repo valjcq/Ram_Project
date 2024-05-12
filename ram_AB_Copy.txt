@@ -1,0 +1,12 @@
+ADD(1,0,RES0)
+ADD(0,0,CPTEXP0)
+JGE(CPTEXP0,B0,10) # Si on a fini (le compteur est supérieur à l'argument donné en entrée. On fini en Jump.
+ADD(0,0,CPTMULT0)  # Sinon on initialise les compteur pour faire la multiplication
+ADD(0,0,RESMULT0)
+JGE(CPTMULT0,RES0,4) # Tant qu'on a pas fini la multiplication, on ajoute A0 au résultat.
+ADD(RESMULT0,A0,RESMULT0)
+ADD(CPTMULT0,1,CPTMULT0)  # Incrémente le compteur de multiplication
+JGE(0,0,-3)
+ADD(0,RESMULT0,RES0) # On met à jour notre variable résultat à chaque itération
+ADD(1,CPTEXP0,CPTEXP0) # On a passé un tour donc elevé la puissance de 1.
+JGE(0,0,-9)
