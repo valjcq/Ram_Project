@@ -375,21 +375,41 @@ if __name__ == "__main__":
         sys.exit(1)
     if sys.argv[1] == "AB":
         # Test de la classe ram
-        machine1 = init_ram("/home/val/Git_Depot/Etudes/L3/S6/IN620/Projet Ram/ram_AB.txt")
+        machine1 = init_ram("ram_AB.txt")
         machine1.set_registre("A", sys.argv[2])
         machine1.set_registre("B", sys.argv[3])
         print(machine1)
         machine1.run(aff=False)
-    if sys.argv[1] == "tableau":
-        machine2 = init_ram("/home/val/Git_Depot/Etudes/L3/S6/IN620/Projet Ram/ram_Tableau.txt")
+    elif sys.argv[1] == "tableau":
+        machine2 = init_ram("ram_Tableau.txt")
         machine2.set_registre("T", "2 1 3 2 2")
         machine2.set_registre("N", "4")
         print(machine2)
         machine2.run(aff=False)
-    if sys.argv[1] == "Automate":
-        machine3 = init_ram("/home/val/Dépots Github/Projet Ram/Partie2.txt")
+    elif sys.argv[1] == "Automate":
+        machine3 = init_ram("Partie2.txt")
         print(machine3)
-        while True:
-            machine3.run(10, aff=True)
-            input("Appuyez sur Entrée pour continuer...")
-
+        machine3.set_registre("i", "6 0 1 0 1 1 0 0 1 1 1 1 0 0 0 1 1 2 2 2 0 1 1 2 2 2 2 0 0 1")
+        machine3.set_registre("mot", "4 1 1 0 0")
+        print("Mot = AABB")
+        user_input = ""
+        if len(sys.argv) > 2:
+            while user_input != "q":
+                machine3.run(10, aff=True)
+                user_input = input("Appuyez sur une touche pour continuer")
+        else:
+            machine3.run(aff=False)
+        machine3 = init_ram("Partie2.txt")
+        machine3.set_registre("i", "6 0 1 0 1 1 0 0 1 1 1 1 0 0 0 1 1 2 2 2 0 1 1 2 2 2 2 0 0 1")
+        machine3.set_registre("mot", "4 1 1 0 1")
+        print("Mot = AABA")
+        user_input = ""
+        if len(sys.argv) > 2:
+            while user_input != "q":
+                machine3.run(10, aff=True)
+                user_input = input("Appuyez sur une touche pour continuer")
+        else:
+            machine3.run(aff=False)
+    else:
+        print("Argument non reconnu")
+        sys.exit(1)
