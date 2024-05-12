@@ -386,3 +386,10 @@ if __name__ == "__main__":
         machine2.set_registre("N", "4")
         print(machine2)
         machine2.run(aff=False)
+    if sys.argv[1] == "Automate":
+        machine3 = init_ram("/home/val/Dépots Github/Projet Ram/Partie2.txt")
+        print(machine3)
+        while True:
+            machine3.run(10, aff=True)
+            input("Appuyez sur Entrée pour continuer...")
+

@@ -1,0 +1,133 @@
+Chargment de l'automate dans la mémoire:
+ADD(6,0,i0)
+
+transition 1
+ADD(0,0,i1) q0
+ADD(1,0,i2) a
+ADD(0,0,i3) fond de pile
+ADD(1,0,i4) tw
+ADD(1,0,i5) A
+ADD(0,0,i6) q0
+
+transition 2
+ADD(0,0,i7) q0
+ADD(1,0,i8) a
+ADD(1,0,i9) A
+ADD(1,0,i10) tw
+ADD(1,0,i11) A
+ADD(0,0,i12) q0
+
+transition 3
+ADD(0,0,i13) q0
+ADD(0,0,i14) b
+ADD(1,0,i15) A
+ADD(1,0,i16) tw
+ADD(2,0,i17) epsilon (dépile)
+ADD(2,0,i18) q1
+
+transition 4
+ADD(2,0,i19) q1
+ADD(0,0,i20) b
+ADD(1,0,i21) A
+ADD(1,0,i22) tw
+ADD(2,0,i23) epsilon
+ADD(2,0,i24) q1
+
+transition 5
+ADD(2,0,i25) q1
+ADD(2,0,i26) epsilon
+ADD(0,0,i27) fond de pile
+ADD(0,0,i28) tw
+ADD(1,0,i29) qfinal
+
+chargment du mot dans la mémoire:
+ADD(4,0,i30) taille mot
+ADD(1,0,i31) a 
+ADD(1,0,i32) a
+ADD(0,0,i33) b
+ADD(0,0,i34) b
+
+déplacement du mot dans le registre de travaille:
+ADD(i30,0,TAILLEMOT0)
+ADD(i31,0,r1)
+ADD(i32,0,r2)
+ADD(i33,0,r3)
+ADD(i34,0,r4)
+
+ADD(1,0,CPTMOT5) compteur pour le mot
+ADD(0,0,ETAT6) initialisation q à l'etat initial
+ADD(9,0,CPTPILE8) initialisation compteur pile
+ADD(0,0,PILE9) initialisation pile
+
+verif mot vide
+JEQ(TAILLEMOT0,0,33)
+
+boucle mot
+verif fin de mot
+JEQ(TAILLEMOT0,CPTMOT5,26)
+
+verif etats
+JEQ(ETAT6,0,2) etat q0 reconnu
+JEQ(ETAT6,2,1) etat q1 reconnu
+
+verif lettre q0
+JEQ(r@CPTMOT5,1,2)a
+JEQ(r@CPTMOT5,0,3)b
+
+verif pile q0 , a
+JEQ(r@CPTPILE8,0,6) transition 1
+JEQ(r@CPTPILE8,1,9) transition 2
+
+verif pile q0,b
+JEQ(r@CPTPILE8,1,12) transition 3
+
+verif lettre q1
+JEQ(r@CPTMOT5,0,1)
+
+verif pile q1 , b
+JEQ(r@CPTPILE8,1,14)
+
+si aucune des transitions n'est reconnu alors
+JGE(0,0,22)
+
+
+cas transition 1
+ADD(1,0,CPTPILE8) ajout 1 compteur pile
+ADD(i5,0,r@CPTPILE8) ajout A dans la pile
+pas besoin d'update etat
+ADD(1,0,CPTMOT5) update lecture mot
+JGE(0,0,-14)
+
+cas transition 2
+ADD(1,0,CPTPILE8)
+ADD(i9,0,r@CPTPILE8)
+etat tjr q0
+ADD(1,0,CPTMOT5) update lecture mot
+JGE(0,0,-18)
+
+cas transition 3
+ADD(-1,0,CPTPILE8)
+ADD(i18,0,ETAT6)
+ADD(1,0,CPTMOT5)
+JGE(0,0,-22)
+
+cas transition 4
+ADD(-1,0,CPTPILE8)
+ADD(1,0,CPTMOT5)
+JGE(0,0,-25)
+
+cas transition 5
+ADD(-1,0,ETAT6) etat qfinal
+
+verif
+JEQ(r@CPTPILE8,PILE9,2) verifie si pile = fond de pile
+JGE(0,0,3)
+
+
+
+mot reconnu
+ADD(0,0,O1)
+JGE(0,0,2)
+
+le mot n'est pas reconnu
+ADD(1,0,O1)
